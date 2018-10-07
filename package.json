@@ -1,0 +1,19 @@
+{
+  "name": "nixalar-meetup",
+  "version": "1.0.0",
+  "description": "Building Nixalar meetup website using node and express",
+  "main": "app/app.js",
+  "scripts": {
+    "start": "node app/app.js"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "javascript"
+  ],
+  "author": "nikhil karkra",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
