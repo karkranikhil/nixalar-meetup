@@ -6,6 +6,21 @@ var dataFile = require('./data/data.json')
 /*set port number based on environment variable */
 app.set('port', process.env.PORT || 3000);
 app.get('/',(req, res)=>{
+    res.send(`
+    <h1>WELCOME</h1>
+    `)
+})
+
+app.get('/speakers/:speakerid',(req, res)=>{
+   var speaker = dataFile.speakers[req.params.speakerid]
+    res.send(`
+    <h1>${speaker.title}</h1>
+    <h2>${speaker.name}</h2>
+    <h3>${speaker.summary}</h3>
+   `)
+})
+
+app.get('/speakers',(req, res)=>{
     var info = '';
     dataFile.speakers.forEach(item => {
         info +=`
@@ -19,6 +34,7 @@ app.get('/',(req, res)=>{
     <h1>Nixalar meetup</h1>
     ${info}`)
 })
+
 
 var server = app.listen(app.get('port'), ()=>console.log('go to http://localhost:'+app.get('port')+ ' on your browser'))
 
