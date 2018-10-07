@@ -9,6 +9,12 @@ app.set('port', process.env.PORT || 3000);
 /*set dataFile to appData and availble throughout our application */
 app.set('appData', dataFile)
 
+app.set('view engine', 'ejs');
+app.set('views', 'app/views');
+
+app.locals.siteTitle = 'Artwork Meetups';
+app.locals.allSpeakers = dataFile.speakers;
+
 app.use(express.static('app/public'))
 app.use(require('./routes/index'));
 app.use(require('./routes/speakers'));

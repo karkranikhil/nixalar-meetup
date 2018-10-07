@@ -1,38 +1,41 @@
-const express = require('express');
-const router = express.Router();
- 
-router.get('/speakers',(req, res)=>{
-    let info = '';
-    /*Fetching data from app.js using get*/
-    let dataFile = req.app.get('appData');
-    dataFile.speakers.forEach(item => {
-        info +=`
-        <li>
-            <h2>${item.name}</h2>
-            <img src="/images/speakers/${item.shortname}_tn.jpg" alt="speaker"/>
-            <p>${item.summary}</p>
-        </li>
-        `
-    });
-    res.send(`
-    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
-    <h1>Nixalar meetup</h1>
-    ${info}
-    <script src="/reload/reload.js"></script>`)
-})
+var express = require('express');
+var router = express.Router();
 
-router.get('/speakers/:speakerid',(req, res)=>{
-    let dataFile = req.app.get('appData');
-    let speaker = dataFile.speakers[req.params.speakerid]
-     res.send(`
-     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
-    <h1>Nixalar meetup</h1>
-     <h1>${speaker.title}</h1>
-     <h2>${speaker.name}</h2>
-     <img src="/images/speakers/${speaker.shortname}_tn.jpg" alt="speaker"/>
-     <h3>${speaker.summary}</h3>
-     <script src="/reload/reload.js"></script>`)
- })
- 
+router.get('/speakers', function(req, res) {
+  var data = req.app.get('appData');
+  var pagePhotos = [];
+  var pageSpeakers = data.speakers;
 
- module.exports = router;
+  data.speakers.forEach(function(item) {
+    pagePhotos = pagePhotos.concat(item.artwork);
+  });
+
+  res.render('speakers', {
+    pageTitle: 'Speakers',
+    artwork: pagePhotos,
+    speakers: pageSpeakers,
+    pageID: 'speakerList'
+  });
+});
+
+router.get('/speakers/:speakerid', function(req, res) {
+  var data = req.app.get('appData');
+  var pagePhotos = [];
+  var pageSpeakers = [];
+
+  data.speakers.forEach(function(item) {
+    if (item.shortname == req.params.speakerid) {
+      pageSpeakers.push(item);
+      pagePhotos = pagePhotos.concat(item.artwork);
+    }
+  });
+
+  res.render('speakers', {
+    pageTitle: 'Speaker Info',
+    artwork: pagePhotos,
+    speakers: pageSpeakers,
+    pageID: 'speakerDetail'
+  });
+});
+
+module.exports = router;

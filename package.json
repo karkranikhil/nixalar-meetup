@@ -1,7 +1,7 @@
 {
-  "name": "nixalar-meetup",
+  "name": "artwork-meetup",
   "version": "1.0.0",
-  "description": "Building Nixalar meetup website using node and express",
+  "description": "Building artwork meetup website using node and express",
   "main": "app/app.js",
   "scripts": {
     "start": "nodemon -e css,ejs,js,json --watch app"
@@ -14,6 +14,7 @@
   "author": "nikhil karkra",
   "license": "MIT",
   "dependencies": {
+    "ejs": "^2.6.1",
     "express": "^4.16.3"
   },
   "devDependencies": {
