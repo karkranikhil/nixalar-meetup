@@ -1,6 +1,7 @@
 /*** creating server using express ***/
 const express = require('express');
 const app = express();
+const reload = require('reload');
 const dataFile = require('./data/data.json')
 
 /*set port number based on environment variable */
@@ -15,6 +16,7 @@ app.use(require('./routes/speakers'));
 
 const server = app.listen(app.get('port'), ()=>console.log('go to http://localhost:'+app.get('port')+ ' on your browser'))
 
+reload(server, app);
 
 
 

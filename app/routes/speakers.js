@@ -17,7 +17,8 @@ router.get('/speakers',(req, res)=>{
     res.send(`
     <link rel="stylesheet" type="text/css" href="/css/style.css"/>
     <h1>Nixalar meetup</h1>
-    ${info}`)
+    ${info}
+    <script src="/reload/reload.js"></script>`)
 })
 
 router.get('/speakers/:speakerid',(req, res)=>{
@@ -30,7 +31,7 @@ router.get('/speakers/:speakerid',(req, res)=>{
      <h2>${speaker.name}</h2>
      <img src="/images/speakers/${speaker.shortname}_tn.jpg" alt="speaker"/>
      <h3>${speaker.summary}</h3>
-    `)
+     <script src="/reload/reload.js"></script>`)
  })
  
 
