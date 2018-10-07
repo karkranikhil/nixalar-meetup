@@ -1,42 +1,18 @@
 /*** creating server using express ***/
-var express = require('express');
-var app = express();
-var dataFile = require('./data/data.json')
+const express = require('express');
+const app = express();
+const dataFile = require('./data/data.json')
 
 /*set port number based on environment variable */
 app.set('port', process.env.PORT || 3000);
-app.get('/',(req, res)=>{
-    res.send(`
-    <h1>WELCOME</h1>
-    `)
-})
+/*set dataFile to appData and availble throughout our application */
+app.set('appData', dataFile)
 
-app.get('/speakers/:speakerid',(req, res)=>{
-   var speaker = dataFile.speakers[req.params.speakerid]
-    res.send(`
-    <h1>${speaker.title}</h1>
-    <h2>${speaker.name}</h2>
-    <h3>${speaker.summary}</h3>
-   `)
-})
-
-app.get('/speakers',(req, res)=>{
-    var info = '';
-    dataFile.speakers.forEach(item => {
-        info +=`
-        <li>
-            <h2>${item.name}</h2>
-            <p>${item.summary}</p>
-        </li>
-        `
-    });
-    res.send(`
-    <h1>Nixalar meetup</h1>
-    ${info}`)
-})
+app.use(require('./routes/index'));
+app.use(require('./routes/speakers'));
 
 
-var server = app.listen(app.get('port'), ()=>console.log('go to http://localhost:'+app.get('port')+ ' on your browser'))
+const server = app.listen(app.get('port'), ()=>console.log('go to http://localhost:'+app.get('port')+ ' on your browser'))
 
 
 
